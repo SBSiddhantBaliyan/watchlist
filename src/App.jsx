@@ -26,35 +26,59 @@ const ProtectedApp = () => {
   }
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>📺 Welcome, {user.name}</h1>
-      <button onClick={() => logout({ returnTo: window.location.origin })}>Logout</button>
-      <br /><br />
-      <input
-        type="text"
-        placeholder="Add new show..."
-        value={newShow}
-        onChange={(e) => setNewShow(e.target.value)}
-      />
-      <button onClick={addShow}>Add</button>
+    <div className="px-4 py-8 max-w-4xl mx-auto">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">📺 Welcome, {user.name}</h1>
+        <button
+          onClick={() => logout({ returnTo: window.location.origin })}
+          className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white"
+        >
+          Logout
+        </button>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+        <input
+          type="text"
+          placeholder="Add new show..."
+          className="flex-1 p-2 rounded text-black"
+          value={newShow}
+          onChange={(e) => setNewShow(e.target.value)}
+        />
+        <button
+          onClick={addShow}
+          className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-white"
+        >
+          Add
+        </button>
+      </div>
 
       <input
         type="text"
         placeholder="Search..."
-        style={{ marginLeft: '1rem' }}
+        className="w-full p-2 rounded text-black mb-4"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <ul>
+      <div className="grid gap-4">
         {shows
           .filter(show => show.toLowerCase().includes(search.toLowerCase()))
           .map((show, index) => (
-            <li key={index}>
-              {show} <button onClick={() => removeShow(show)}>❌</button>
-            </li>
+            <div
+              key={index}
+              className="bg-gray-800 p-4 rounded shadow flex justify-between items-center"
+            >
+              <span className="text-lg">{show}</span>
+              <button
+                onClick={() => removeShow(show)}
+                className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-white"
+              >
+                Remove
+              </button>
+            </div>
           ))}
-      </ul>
+      </div>
     </div>
   )
 }
@@ -74,8 +98,17 @@ export default function App() {
 const Auth = () => {
   const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0()
 
-  if (isLoading) return <div>Loading...</div>
-  if (!isAuthenticated) return <button onClick={loginWithRedirect}>Login</button>
+  if (isLoading) return <div className="p-8 text-center">Loading...</div>
+  if (!isAuthenticated) return (
+    <div className="p-8 text-center">
+      <button
+        onClick={loginWithRedirect}
+        className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white"
+      >
+        Login
+      </button>
+    </div>
+  )
 
   return <ProtectedApp />
 }
