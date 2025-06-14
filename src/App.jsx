@@ -62,8 +62,8 @@ const ProtectedApp = () => {
 export default function App() {
   return (
     <Auth0Provider
-      domain="YOUR_AUTH0_DOMAIN"
-      clientId="YOUR_AUTH0_CLIENT_ID"
+      domain="dev-xi5zpyfno3r54bh1.us.auth0.com"
+      clientId="p7aZZFpIyICG7HPjlGfdz5gKdD9KIP0t"
       authorizationParams={{ redirect_uri: window.location.origin }}
     >
       <Auth />
